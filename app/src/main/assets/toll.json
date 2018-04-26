@@ -1,0 +1,20 @@
+{
+  "tolls": [
+    {
+      "id": 1,
+      "name": "Kishangarh"
+    },
+    {
+      "id": 2,
+      "name": "Jaipur"
+    },
+    {
+      "id": 3,
+      "name": "Kota"
+    },
+    {
+      "id": 4,
+      "name": "Udaipur"
+    }
+  ]
+}

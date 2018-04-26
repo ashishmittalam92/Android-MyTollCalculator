@@ -1,0 +1,11 @@
+{
+  "tollbetweenplaces": [
+    {
+      "tollId": 1,
+      "routeId": 1,
+      "distance": 300,
+      "singleCost": 40,
+      "returnCost": 50
+    }
+  ]
+}
