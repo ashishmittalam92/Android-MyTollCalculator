@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mytollcalculator.mytollcalculator.db.DatabaseHelper;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText sourceEditText;
     private EditText destinationEditText;
     private TextView resultTextView;
+    private LinearLayout tollDetailLinearLayout;
 
     private DatabaseHelper databaseHelper;
 
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         destinationEditText = (EditText) findViewById(R.id.destination);
 
         resultTextView = (TextView) findViewById(R.id.result);
+
+        tollDetailLinearLayout = (LinearLayout) findViewById(R.id.tollDetail);
     }
 
     @Override
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 resultTextView.setText("");
 
+                tollDetailLinearLayout.removeAllViews();
+
                 Log.i("source", sourceEditText.getText().toString());
                 Log.i("destination", destinationEditText.getText().toString());
 
@@ -53,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if(!source.equals("") && !destination.equals("")) {
                     List<TollDetail> tollDetails = databaseHelper.getTollDetails(source, destination);
-                    Log.i("size", ""+tollDetails.size());
 
                     if(tollDetails.size() > 0) {
                         double totalDistance = 0;
@@ -62,6 +67,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         for(TollDetail tollDetail: tollDetails) {
                             totalDistance += tollDetail.getDistance();
                             totalCost += tollDetail.getSingleCost();
+
+                            TextView textView = new TextView(this);
+                            textView.setText(tollDetail.getTollName()
+                                        + "\n Single Cost:" + tollDetail.getSingleCost()
+                                        + "\n Return Cost:" + tollDetail.getReturnCost());
+
+                            tollDetailLinearLayout.addView(textView);
                         }
 
                         String text = "Total distance: " + totalDistance

@@ -126,15 +126,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + " SELECT r.id FROM " + Route.TABLE_NAME + " r"
                     + " WHERE r.sourceId = ("
                         + " SELECT s.id FROM " + Place.TABLE_NAME + " s"
-                        + " WHERE s.name = '" + source + "'"
+                        + " WHERE lower(s.name) = '" + source.toLowerCase() + "'"
                         + ") and ("
                         + " SELECT d.id FROM " + Place.TABLE_NAME + " d"
-                        + " WHERE d.name = '" + destination + "'"
+                        + " WHERE lower(d.name) = '" + destination.toLowerCase() + "'"
                     + ")"
                 + ")";
-
-
-        Log.i("query", selectQuery);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
